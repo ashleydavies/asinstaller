@@ -1,0 +1,25 @@
+#! /usr/bin/env ruby
+
+require 'fileutils'
+
+SCRIPTS           = ["githubc", "wiki"]
+DIR               = Dir.pwd
+INSTALL_SETUP_LOC = 'as-install-setup'
+INSTALL_LOC       = '~/bin'
+
+Dir.mkdir INSTALL_LOC unless File.directory? INSTALL_LOC
+Dir.mkdir INSTALL_SETUP_LOC
+Dir.chdir INSTALL_SETUP_LOC
+
+SCRIPTS.each do |script|
+    puts "Fetching #{script}"
+    `git clone https://github.com/ashleydavies/#{script} --quiet`
+    FileUtils.mkdir_p INSTALL_LOC
+    FileUtils.mv "#{script}/#{script}", "#{INSTALL_LOC}/#{script}"
+    FileUtils.rm_rf script
+    puts "Integrated script into #{INSTALL_LOC}"
+end
+
+Dir.chdir DIR
+FileUtils.rm_rf INSTALL_SETUP_LOC
+
