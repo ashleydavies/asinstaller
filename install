@@ -5,7 +5,7 @@ require 'fileutils'
 SCRIPTS           = ["githubc", "wiki"]
 DIR               = Dir.pwd
 INSTALL_SETUP_LOC = 'as-install-setup'
-INSTALL_LOC       = '~/bin'
+INSTALL_LOC       = File.expand_path '~/bin'
 
 Dir.mkdir INSTALL_LOC unless File.directory? INSTALL_LOC
 Dir.mkdir INSTALL_SETUP_LOC
